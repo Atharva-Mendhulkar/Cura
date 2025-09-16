@@ -1,3 +1,5 @@
+⸻
+
 Cura – Student Mental Wellbeing & Support Platform
 
 🌱 Your all-in-one digital companion for mental health, academic support, career guidance, and relationships.
