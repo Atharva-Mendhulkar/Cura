@@ -115,7 +115,7 @@ export default function SignUpPage() {
 
           <div className="flex items-center justify-center gap-2">
             <Heart className="h-8 w-8 text-primary" />
-            <h1 className="text-xl font-bold">{language === "en" ? "Student Support Hub" : "छात्र सहायता केंद्र"}</h1>
+            <h1 className="text-xl font-bold animate-fade-in">{language === "en" ? "Cura" : "क्यूरा"}</h1>
           </div>
 
           <div className="flex justify-center">

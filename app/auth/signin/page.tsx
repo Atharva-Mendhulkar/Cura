@@ -75,7 +75,7 @@ export default function SignInPage() {
 
           <div className="flex items-center justify-center gap-2">
             <Heart className="h-8 w-8 text-primary" />
-            <h1 className="text-xl font-bold">{language === "en" ? "Student Support Hub" : "छात्र सहायता केंद्र"}</h1>
+            <h1 className="text-xl font-bold animate-fade-in">{language === "en" ? "Cura" : "क्यूरा"}</h1>
           </div>
 
           <div className="flex justify-center">
@@ -88,7 +88,7 @@ export default function SignInPage() {
           <CardHeader className="text-center">
             <CardTitle>{t("signIn", language)}</CardTitle>
             <CardDescription>
-              {language === "en" ? "Welcome back to Student Support Hub" : "छात्र सहायता केंद्र में वापस स्वागत है"}
+              {language === "en" ? "Welcome back to Cura" : "क्यूरा में वापस स्वागत है"}
             </CardDescription>
           </CardHeader>
 

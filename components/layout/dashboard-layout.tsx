@@ -22,11 +22,13 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const [user, setUser] = useState(getCurrentUser())
   const [language, setCurrentLanguage] = useState(getCurrentLanguage())
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
 
   useEffect(() => {
     setCurrentLanguage(getCurrentLanguage())
     setUser(getCurrentUser())
+    setMounted(true)
   }, [])
 
   const navigationItems = [
@@ -99,9 +101,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           <Link href="/dashboard" className="flex items-center gap-2">
             <Heart className="h-6 w-6 text-primary" />
             <span className="font-bold text-lg hidden sm:inline-block">
-              {language === "en" ? "Cura" : "छात्र सहायता केंद्र"}
+              {language === "en" ? "Cura" : "क्यूरा"}
             </span>
-            <span className="font-bold text-lg sm:hidden">SSH</span>
+            <span className="font-bold text-lg sm:hidden">Cura</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -128,27 +130,26 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           {/* Right Side Actions */}
           <div className="flex items-center gap-2">
             <LanguageToggle />
+            <Button variant="outline" size="sm" className="bg-transparent" onClick={handleSignOut}>
+              {language === "en" ? "Log Out" : "लॉग आउट"}
+            </Button>
 
-            {/* Desktop User Menu */}
-            <div className="hidden md:block">
+            {/* User Menu */}
+            <div className="block">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-2 h-auto p-2">
+                  <Button variant="ghost" aria-label="User menu" className="flex items-center gap-2 h-auto p-2">
                     <Avatar className="h-8 w-8 ring-2 ring-primary">
                       <AvatarFallback className="bg-primary text-primary-foreground text-sm font-semibold">
-                        {user?.name?.charAt(0).toUpperCase()}
+                        {mounted && user?.name ? user.name.charAt(0).toUpperCase() : <User className="h-4 w-4" />}
                       </AvatarFallback>
                     </Avatar>
-                    <span className="text-sm font-medium hidden lg:inline-block">{user?.name}</span>
+                    {mounted && user?.name ? (
+                      <span className="text-sm font-medium hidden lg:inline-block">{user.name}</span>
+                    ) : null}
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
-                  <Link href="/profile">
-                    <DropdownMenuItem className="flex items-center gap-2">
-                      <User className="h-4 w-4" />
-                      {language === "en" ? "My Profile" : "मेरी प्रोफ़ाइल"}
-                    </DropdownMenuItem>
-                  </Link>
                   <Button
                     variant="ghost"
                     className="w-full justify-start"
@@ -174,7 +175,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                 <SheetContent side="right" className="w-72">
                   <div className="flex items-center gap-2 mb-6">
                     <Heart className="h-6 w-6 text-primary" />
-                    <span className="font-bold">{language === "en" ? "Student Support Hub" : "छात्र सहायता केंद्र"}</span>
+                    <span className="font-bold">{language === "en" ? "Cura" : "क्यूरा"}</span>
                   </div>
 
                   <nav className="space-y-2">
@@ -197,15 +198,6 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                       )
                     })}
 
-                    <Link
-                      href="/profile"
-                      className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors text-muted-foreground hover:text-foreground hover:bg-muted"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <User className="h-4 w-4" />
-                      {language === "en" ? "My Profile" : "मेरी प्रोफ़ाइल"}
-                    </Link>
-
                     <Button
                       variant="ghost"
                       className="w-full justify-start px-3 py-2 h-auto font-medium"
@@ -226,12 +218,16 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                     <div className="flex items-center gap-3 mb-4">
                       <Avatar className="h-10 w-10 ring-2 ring-primary">
                         <AvatarFallback className="bg-primary text-primary-foreground text-base font-semibold">
-                          {user?.name?.charAt(0).toUpperCase()}
+                          {mounted && user?.name ? user.name.charAt(0).toUpperCase() : <User className="h-4 w-4" />}
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        <p className="text-sm font-medium">{user?.name}</p>
-                        <p className="text-xs text-muted-foreground">{user?.email}</p>
+                        {mounted && user?.name ? (
+                          <p className="text-sm font-medium">{user.name}</p>
+                        ) : null}
+                        {mounted && user?.email ? (
+                          <p className="text-xs text-muted-foreground">{user.email}</p>
+                        ) : null}
                       </div>
                     </div>
                     <Button

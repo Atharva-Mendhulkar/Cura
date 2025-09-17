@@ -115,7 +115,7 @@ export default function ChatbotPage() {
   }
 
   const handleSendMessage = async () => {
-    if (!inputMessage.trim()) return
+    if (!inputMessage.trim() || isLoading) return
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -128,22 +128,54 @@ export default function ChatbotPage() {
     setInputMessage("")
     setIsLoading(true)
 
-    // Simulate API delay
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/chatbot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: userMessage.content,
+          history: messages.map((m) => ({ sender: m.sender, content: m.content })),
+          language,
+        }),
+      })
+      if (!res.ok) {
+        throw new Error(`API error ${res.status}`)
+      }
+      const data = await res.json()
+
+      const replyText = data?.reply || generateResponse(userMessage.content)
       const botResponse: Message = {
         id: (Date.now() + 1).toString(),
-        content: generateResponse(inputMessage),
+        content: replyText,
         sender: "bot",
         timestamp: new Date(),
-        type: detectCrisis(inputMessage) ? "crisis" : "normal",
+        type: detectCrisis(userMessage.content) ? "crisis" : "normal",
       }
-
       setMessages((prev) => [...prev, botResponse])
+    } catch (e) {
+      const fallback: Message = {
+        id: (Date.now() + 2).toString(),
+        content:
+          language === "en"
+            ? "Sorry, I’m having trouble responding right now. Please try again."
+            : "क्षमा करें, मैं अभी जवाब देने में असमर्थ हूं। कृपया दोबारा प्रयास करें।",
+        sender: "bot",
+        timestamp: new Date(),
+      }
+      setMessages((prev) => [...prev, fallback])
+    } finally {
       setIsLoading(false)
-    }, 1000)
+    }
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault()
+      handleSendMessage()
+    }
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault()
       handleSendMessage()
@@ -191,13 +223,13 @@ export default function ChatbotPage() {
             </CardTitle>
           </CardHeader>
 
-          <CardContent className="flex-1 flex flex-col p-0">
+          <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 min-w-0">
               {messages.map((message) => (
                 <div
                   key={message.id}
-                  className={`flex gap-3 ${message.sender === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex gap-3 items-start w-full`}
                 >
                   {message.sender === "bot" && (
                     <div className="flex-shrink-0">
@@ -208,15 +240,15 @@ export default function ChatbotPage() {
                   )}
 
                   <div
-                    className={`max-w-[80%] rounded-lg p-3 ${
+                    className={`max-w-[80%] w-fit rounded-lg p-3 ${
                       message.sender === "user"
-                        ? "bg-primary text-primary-foreground"
+                        ? "bg-primary text-primary-foreground ml-auto"
                         : message.type === "crisis"
                           ? "bg-red-50 border border-red-200 text-red-900"
                           : "bg-muted"
                     }`}
                   >
-                    <p className="text-sm leading-relaxed">{message.content}</p>
+                    <p className="text-sm leading-relaxed whitespace-pre-wrap break-words break-all [overflow-wrap:anywhere]">{message.content}</p>
                     <p className="text-xs opacity-70 mt-1">
                       {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                     </p>
@@ -264,6 +296,7 @@ export default function ChatbotPage() {
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
+                  onKeyDown={handleKeyDown}
                   placeholder={language === "en" ? "Type your message..." : "अपना संदेश टाइप करें..."}
                   disabled={isLoading}
                   className="flex-1"

@@ -167,7 +167,7 @@ export default function DashboardPage() {
                       : "किसी से बात करने की जरूरत है? हमारा AI असिस्टेंट 24/7 यहाँ है"}
                   </p>
                 </div>
-                <Button className="shrink-0">
+                <Button className="shrink-0" onClick={() => (window.location.href = "/chatbot") }>
                   <MessageCircle className="h-4 w-4 mr-2" />
                   {language === "en" ? "Chat Now" : "अभी चैट करें"}
                 </Button>

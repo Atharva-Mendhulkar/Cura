@@ -16,11 +16,8 @@ export function StreakCounter({ streakDays }: StreakCounterProps) {
   }
 
   return (
-    <Card className="inline-flex items-center gap-2 px-4 py-2">
+    <Card className="inline-flex items-center gap-2 px-4 py-2" aria-label={`Streak: ${streakDays} days`}>
       <Flame className={`h-5 w-5 ${getStreakColor()}`} />
-      <span className="font-semibold">
-        {streakDays} {streakDays === 1 ? "day" : "days"} streak
-      </span>
     </Card>
   )
 }

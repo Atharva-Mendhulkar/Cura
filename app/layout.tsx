@@ -7,7 +7,7 @@ import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Student Support Hub - Mental Health & Academic Support",
+  title: "Cura - Mental Health & Academic Support",
   description:
     "Privacy-first multilingual platform for college students providing mental health first-aid, appointment booking, peer support, and academic tools.",
   generator: "v0.app",

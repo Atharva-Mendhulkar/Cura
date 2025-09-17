@@ -103,7 +103,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Heart className="h-8 w-8 text-primary" />
-            <h1 className="text-xl font-bold">{language === "en" ? "Student Support Hub" : "छात्र सहायता केंद्र"}</h1>
+            <h1 className="text-xl font-bold animate-fade-in">{language === "en" ? "Cura" : "क्यूरा"}</h1>
           </div>
           <LanguageToggle />
         </div>
@@ -118,7 +118,7 @@ export default function HomePage() {
               : "गोपनीयता-प्रथम • बहुभाषी • छात्र-केंद्रित"}
           </Badge>
 
-          <h2 className="text-4xl md:text-6xl font-bold text-balance leading-tight">
+          <h2 className="text-4xl md:text-6xl font-bold text-balance leading-tight animate-slide-up">
             {language === "en"
               ? "Your Mental Health & Academic Success Partner"
               : "आपका मानसिक स्वास्थ्य और शैक्षणिक सफलता साथी"}
@@ -187,7 +187,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
           <p>
             {language === "en"
-              ? "© 2024 Student Support Hub. Built with privacy and care for student wellbeing."
+              ? "© 2024 Cura. Built with privacy and care for student wellbeing."
               : "© 2024 छात्र सहायता केंद्र। छात्र कल्याण के लिए गोपनीयता और देखभाल के साथ निर्मित।"}
           </p>
         </div>
