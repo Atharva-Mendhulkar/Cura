@@ -320,10 +320,10 @@ export default function ChatbotPage() {
             </div>
             <div className="text-sm text-red-800 space-y-1">
               <p>
-                <strong>{language === "en" ? "Crisis Helpline:" : "क्राइसिस हेल्पलाइन:"}</strong> 988
+                <strong>{language === "en" ? "Crisis Helpline:" : "क्राइसिस हेल्पलाइन:"}</strong> 14416
               </p>
               <p>
-                <strong>{language === "en" ? "Emergency:" : "आपातकाल:"}</strong> 911
+                <strong>{language === "en" ? "Emergency:" : "आपातकाल:"}</strong> 112
               </p>
               <p>
                 <strong>{language === "en" ? "Campus Counseling:" : "कैंपस काउंसलिंग:"}</strong> Available 24/7

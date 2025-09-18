@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   title: "Cura - Mental Health & Academic Support",
   description:
     "Privacy-first multilingual platform for college students providing mental health first-aid, appointment booking, peer support, and academic tools.",
-  generator: "v0.app",
 }
 
 export default function RootLayout({
