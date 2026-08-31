@@ -5,6 +5,7 @@ import type React from "react"
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { LanguageToggle } from "@/components/ui/language-toggle"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -129,6 +130,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
           {/* Right Side Actions */}
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <LanguageToggle />
             <Button variant="outline" size="sm" className="bg-transparent" onClick={handleSignOut}>
               {language === "en" ? "Log Out" : "लॉग आउट"}

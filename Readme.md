@@ -122,24 +122,30 @@ cd cura
 npm install
 
 ## Run development server
-npm start
+```bash
+npm run dev
+```
 
-# Deployment
-	•	Push to GitHub → Deploy via Vercel/Netlify in 1 click
+## Deployment
+- Push to GitHub → Deploy via Vercel/Netlify in 1 click
 
-# Roadmap
-	•	Dashboard with mood tracking & journals
-	•	Career, Academics, Relationships modules
-	•	Wellness Center with breathing & meditation
-	•	AI Tutor & AI Career Counselor full integration
-	•	Expanded language support (Marathi, Tamil, Bengali)
-	•	Mobile app version (React Native / Flutter)
+## Roadmap
+- Dashboard with mood tracking & journals
+- Career, Academics, Relationships modules
+- Wellness Center with breathing & meditation
+- AI Tutor & AI Career Counselor full integration
+- Expanded language support (Marathi, Tamil, Bengali)
+- Mobile app version (React Native / Flutter)
 
-# Contributing
+## Contributing
 
 Contributions are welcome! Fork the repo, create a branch, and open a PR.
 
-# License
+### Contributors
+- Thanks to all the amazing contributors helping build Cura!
+
+## License
 
 MIT License © 2025 Cura Team
+
 

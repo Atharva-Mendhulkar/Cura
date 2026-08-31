@@ -11,11 +11,13 @@ import { Switch } from "@/components/ui/switch"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
 import { LanguageToggle } from "@/components/ui/language-toggle"
-import { User, Shield, Bell, Globe, Download, Trash2, Lock, Smartphone, Mail, Calendar } from "lucide-react"
+import { useTheme } from "next-themes"
+import { User, Shield, Bell, Globe, Download, Trash2, Lock, Smartphone, Mail, Calendar, Moon } from "lucide-react"
 import { getCurrentUser } from "@/lib/auth"
 import { getCurrentLanguage } from "@/lib/i18n"
 
 export default function SettingsPage() {
+  const { theme, setTheme } = useTheme()
   const [user, setUser] = useState(getCurrentUser())
   const [language, setCurrentLanguage] = useState(getCurrentLanguage())
   const [settings, setSettings] = useState({
@@ -340,6 +342,21 @@ export default function SettingsPage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <Label className="text-base">{language === "en" ? "Dark Mode" : "डार्क मोड"}</Label>
+                  <p className="text-sm text-muted-foreground">
+                    {language === "en" ? "Toggle between light and dark theme" : "लाइट और डार्क थीम के बीच स्विच करें"}
+                  </p>
+                </div>
+                <Switch
+                  checked={theme === "dark"}
+                  onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+                />
+              </div>
+
+              <Separator />
+
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <Label className="text-base">{language === "en" ? "Language" : "भाषा"}</Label>
